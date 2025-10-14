@@ -1,0 +1,29 @@
+  {
+    "timestamp": "2025-10-10 19:29:22",
+    "global_positive": "testing - Global Positive A",
+    "global_negative": "testing - Global Negative A",
+    "local_positive": "testing - Local Positive A",
+    "local_negative": "testing - Local Negative A"
+  },
+  {
+    "timestamp": "2025-10-10 19:29:56",
+    "global_positive": "testing - Global Positive B",
+    "global_negative": "testing - Global Negative B",
+    "local_positive": "testing - Local Positive B",
+    "local_negative": "testing - Local Negative B"
+  },
+  {
+    "timestamp": "2025-10-10 19:32:32",
+    "global_positive": "testing - Global Positive C",
+    "global_negative": "testing - Global Negative C",
+    "local_positive": "testing - Local Positive C",
+    "local_negative": "testing - Local Negative C"
+  },
+  {
+    "timestamp": "2025-10-13 23:47:15",
+    "global_positive": "Two developers intensely collaborating at a sleek workstation, late night coding session, Alex Furer and Claude AI working together, multiple monitors displaying ComfyUI node graphs and Python code, coffee mugs scattered around, dramatic blue screen glow illuminating focused faces, digital art style, cyberpunk aesthetic, particles of code floating in the air, AF logo hologram projecting from laptop, sweat drops visible from intense problem-solving, determined expressions, ergonomic chairs, mechanical keyboard with RGB lighting, Post-it notes covering the walls with workflow diagrams",
+    "global_negative": "blurry, low quality, bad anatomy, amateur, poorly lit, boring composition, generic office space, daytime lighting, casual atmosphere, no details, simple, plain, messy desk, unprofessional",
+    "local_positive": "cinematic lighting, volumetric fog, ray tracing, octane render, photorealistic details, 8k resolution, studio quality, professional color grading, depth of field, bokeh background, rim lighting on faces, screen reflections in glasses, detailed cable management, futuristic UI elements, neon accents, holographic overlays, particle effects",
+    "local_negative": "cartoon, anime, sketch, watermark, signature, text overlay, oversaturated, underexposed, noise, grain, compression artifacts"
+  }
+]
