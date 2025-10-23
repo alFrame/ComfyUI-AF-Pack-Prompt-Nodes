@@ -95,8 +95,8 @@ class AF_Save_Prompt_History:
         return {
             "required": {
                 "directory": ("STRING", {"default": "Prompt-History", "multiline": False}),
-                "filename": ("STRING", {"default": "default", "multiline": False}),  # CHANGED: filename for the actual file
-                "project": ("STRING", {"default": "default", "multiline": False}),   # ADDED: separate project tag
+                "filename": ("STRING", {"default": "default", "multiline": False}),
+                "project": ("STRING", {"default": "default", "multiline": False}),
             },
             "optional": {
                 "global_positive": ("STRING", {"forceInput": True}),
@@ -113,7 +113,7 @@ class AF_Save_Prompt_History:
     CATEGORY = "AF - Nodes/AF - Prompt Pack"
 
     def save_prompts(self, directory, filename, project, global_positive="", global_negative="", local_positive="", local_negative=""):      
-        json_filename = f"{filename.strip()}.json"  # CHANGED: Use filename for the actual file
+        json_filename = f"{filename.strip()}.json"
         
         # Get the node pack folder first
         node_dir = os.path.dirname(os.path.abspath(__file__))
@@ -149,19 +149,27 @@ class AF_Save_Prompt_History:
             except Exception as e:
                 existing_data = []
         
+        # Clean up prompts: remove trailing newlines but preserve internal ones
+        def clean_prompt(prompt):
+            if not prompt:
+                return ""
+            # Remove trailing whitespace and newlines, but preserve internal formatting
+            return prompt.rstrip()
+        
         new_entry = {
             'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'project': project.strip(),  # Store the project tag
-            'global_positive': global_positive,
-            'global_negative': global_negative,
-            'local_positive': local_positive,
-            'local_negative': local_negative,
+            'project': project.strip(),
+            'global_positive': clean_prompt(global_positive),
+            'global_negative': clean_prompt(global_negative),
+            'local_positive': clean_prompt(local_positive),
+            'local_negative': clean_prompt(local_negative),
         }
         
         existing_data.append(new_entry)
         
         try:
             with open(json_file_path, 'w', encoding='utf-8') as jsonfile:
+                # Pretty formatting with indentation for human readability
                 json.dump(existing_data, jsonfile, indent=2, ensure_ascii=False)
             print(f"AF Save Prompt History - Saved to {json_file_path}")
         except Exception as e:
