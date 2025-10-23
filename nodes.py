@@ -10,12 +10,13 @@
 #
 # LICENSE: MIT License
 #
-# v1.1.0
+# v1.1.1
 #
 # Usage:
 # Read Me on Github
 #
 # Changelog:
+# "v1.1.1 - Added "project" back in as a tag that get's stored in the json",
 # "v1.1.0 - Complete overhauled Load Prompt node",
 # "v1.0.0 - Initial Version"
 #
@@ -94,7 +95,8 @@ class AF_Save_Prompt_History:
         return {
             "required": {
                 "directory": ("STRING", {"default": "Prompt-History", "multiline": False}),
-                "project": ("STRING", {"default": "default", "multiline": False}),
+                "filename": ("STRING", {"default": "default", "multiline": False}),  # CHANGED: filename for the actual file
+                "project": ("STRING", {"default": "default", "multiline": False}),   # ADDED: separate project tag
             },
             "optional": {
                 "global_positive": ("STRING", {"forceInput": True}),
@@ -110,8 +112,8 @@ class AF_Save_Prompt_History:
     OUTPUT_NODE = True
     CATEGORY = "AF - Nodes/AF - Prompt Pack"
 
-    def save_prompts(self, directory, project, global_positive="", global_negative="", local_positive="", local_negative=""):      
-        json_filename = f"{project.strip()}.json"
+    def save_prompts(self, directory, filename, project, global_positive="", global_negative="", local_positive="", local_negative=""):      
+        json_filename = f"{filename.strip()}.json"  # CHANGED: Use filename for the actual file
         
         # Get the node pack folder first
         node_dir = os.path.dirname(os.path.abspath(__file__))
@@ -149,6 +151,7 @@ class AF_Save_Prompt_History:
         
         new_entry = {
             'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'project': project.strip(),  # Store the project tag
             'global_positive': global_positive,
             'global_negative': global_negative,
             'local_positive': local_positive,

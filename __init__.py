@@ -12,12 +12,13 @@ WEB_DIRECTORY = "./web"
 
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "Alex Furer"
 __title__ = "AF Prompt Nodes Pack"
 __description__ = "A collection of prompt management nodes for ComfyUI"
 __license__ = "MIT"
 __changelog__ = [
+    "v1.1.1 - Added \"project\" back in as a tag that get's stored in the json",
     "v1.0.0 - Merged AF Edit Generated Prompt and AF Prompt History into single pack",
     "v0.0.17 - Updated the init.py and modified the README (from Edit Generated Prompt)",
     "v0.0.16 - Reorganized metadata to follow ComfyUI standards",
