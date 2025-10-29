@@ -153,7 +153,8 @@ AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 
 ### Pattern 1: AI-Assisted with History Backup
 ```
-[LLM] → [Edit Prompt] → [Save History] → [CLIP Encode] → [KSampler]
+[LLM] → [Edit Prompt] ┬ → [CLIP Encode] → [KSampler]
+                      └ → [Save History]
 ```
 
 ### Pattern 2: Load & Compare Previous Prompts
