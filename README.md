@@ -50,7 +50,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 ### Inputs
 - `directory` - Folder name (default: "Prompt-History")
 - `filename` - JSON file name (default: "default")
-- `project` - Project identifier stored in JSON
+- `project` - Project identifier (stored as metadata in JSON for reference)
 - `global_positive/negative` - Main prompts (optional)
 - `local_positive/negative` - Secondary prompts (optional)
 
@@ -72,7 +72,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 ]
 ```
 
-**Note:** All prompts are automatically cleaned (trailing whitespace removed, internal formatting preserved).
+**Note:** All prompts are automatically cleaned (trailing whitespace removed, internal formatting preserved). The `project` field is stored for your reference but not used for filtering.
 
 ---
 
@@ -86,7 +86,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 │ AF - Load Prompt History        │
 ├─────────────────────────────────┤
 │ directory: [AF-PromptHistory  ] │
-│ project:   [MyProject        ▼] │
+│ filename:  [MyProject        ▼] │
 │ timestamp_index: [0           ] │
 ├─────────────────────────────────┤
 │ Outputs:                        │
@@ -97,6 +97,11 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 │ • info (connect to Show Text!)  │
 └─────────────────────────────────┘
 ```
+
+### How It Works
+- **Filename dropdown** - Lists all `.json` files in the directory (without .json extension)
+- **Index selection** - Choose which timestamp to load (0 = newest)
+- **Info output** - Shows selected prompt content and metadata
 
 ### Index System
 - `0` = Most recent prompt
@@ -109,9 +114,9 @@ Files in `output/{directory}/` override files in `{node_pack}/{directory}/` with
 
 ### Critical: Connect the Info Output!
 Always connect `info` → `Show Text` node to see:
-- Currently selected timestamp
-- Full list of available timestamps with indices
-- Valid range for your selection
+- Currently selected filename and timestamp
+- Full content of all 4 prompts being loaded
+- Total available timestamps count
 - Error messages if index is out of range
 
 ### Example Info Display
@@ -119,24 +124,27 @@ Always connect `info` → `Show Text` node to see:
 ══════════════════════════════════════════════════
   AF - LOAD PROMPT HISTORY
 ══════════════════════════════════════════════════
+📄 Filename: MyProject
+📊 Available Timestamps: 205
 
-📂 Project: MyProject
-📊 Available Timestamps: 4
-🔢 Current Index: 0
+🔢 SELECTED: [126] | 2025-10-29 | 14:32:15
 
-⏰ SELECTED: 2025-10-29 | 14:32:15
+Global Positive:
+A serene mountain landscape at sunset, golden hour lighting...
 
-──────────────────────────────────────────────────
-Available Timestamps (newest first):
-──────────────────────────────────────────────────
-► [ 0] 2025-10-29 | 14:32:15
-  [ 1] 2025-10-28 | 19:32:32
-  [ 2] 2025-10-27 | 10:15:44
-  [ 3] 2025-10-26 | 08:22:11
-──────────────────────────────────────────────────
+Global Negative:
+ugly, deformed, low quality, blurry
 
-💡 TIP: Connect 'info' output to Show Text node
-        to see this selection guide!
+Local Positive:
+detailed foreground rocks, wildflowers
+
+Local Negative:
+(empty)
+```
+
+**Console Output:**
+```
+AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 ```
 
 ---
@@ -155,28 +163,30 @@ Available Timestamps (newest first):
 [Load History: index=10]→ [Edit] → [CLIP] ┘
 ```
 
-### Pattern 3: Multi-Project Workflow
+### Pattern 3: Multi-File Workflow
 ```
-[Load: ProjectA] → [Edit Global+] → ┐
-[Load: ProjectB] → [Edit Local+]  → ├→ [CLIP Encode]
-[Load: ProjectC] → [Edit Global-] → ┘
+[Load: FileA.json] → [Edit Global+] → ┐
+[Load: FileB.json] → [Edit Local+]  → ├→ [CLIP Encode]
+[Load: FileC.json] → [Edit Global-] → ┘
 ```
 
 ---
 
 ## 🔧 Troubleshooting
 
-### Projects not appearing in dropdown
+### Files not appearing in dropdown
 - Check ComfyUI console for cache messages
 - Verify `.json` files exist in `output/{directory}/`
 - Restart ComfyUI to rebuild cache
+- Ensure files end with `.json` extension
 
 ### Index out of range
-- Connect `info` output to Show Text to see valid range
-- Example: 4 timestamps = indices 0-3 are valid
+- Connect `info` output to Show Text to see available count
+- Example: 205 timestamps = valid indices are 0-204
+- The info display shows total count at the top
 
 ### Prompts not loading
-- Ensure project is selected (not "none")
+- Ensure filename is selected (not "none")
 - Check timestamp_index is within range (see info output)
 - Verify JSON file format matches example above
 - Look for error messages in console
@@ -191,10 +201,11 @@ Available Timestamps (newest first):
 ## 💡 Pro Tips
 
 - **Index 0 is your friend** - Always points to newest prompt
-- **Info output = your map** - Always connect it during setup
-- **Console logging** - Detailed messages help debug issues
-- **Multiple load nodes** - Each can access different projects/indices
+- **Info output shows everything** - See exactly what you loaded
+- **Console logging** - Check ID and timestamp confirmation
+- **Multiple load nodes** - Each can access different files/indices
 - **Workflows persist** - Your selections save with the workflow
+- **Project field** - Use it as a mental note when saving, great for manual inspection
 
 ---
 
