@@ -245,6 +245,12 @@ Report issues on GitHub - we appreciate your feedback!
 
 ---
 
-**Made with 🔥 by Alex Furer & Claude AI**
+## 📚 Additional Resources
 
-*Simple. Clean. Works every time.* ✨
+- **[Changelog](CHANGELOG.md)** - Version history and updates
+- [GitHub Issues](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/issues) - Report bugs & request features
+- [License](LICENSE) - MIT License details
+
+---
+
+**Made with ❤️ by Alex Furer & Qwen3, Claude AI, DeepSeek**

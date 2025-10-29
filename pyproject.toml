@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-af-prompt-nodes-pack"
+description = "A lightweight suite of ComfyUI custom nodes for AI prompt management and history tracking."
+version = "1.0.3"
+dependencies = []
+license = {file = "LICENSE"}
+
+[project.urls]
+Repository = "https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes"
+
+[tool.comfy]
+PublisherId = "alframe"
+DisplayName = "ComfyUI AF - Pack-Prompt-Nodes"
+Icon = ""

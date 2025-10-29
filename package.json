@@ -1,0 +1,12 @@
+{
+  "name": "comfyui-af-prompt-nodes-pack",
+  "version": "1.0.3", 
+  "description": "A lightweight suite of ComfyUI custom nodes for AI prompt management and history tracking.",
+  "author": "Alex Furer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git"
+  },
+  "nodepath": "custom_nodes/ComfyUI-AF-Pack-Prompt-Nodes"
+}
