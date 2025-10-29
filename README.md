@@ -1,263 +1,249 @@
-# ComfyUI-AF-Pack-Prompt-Nodes
-A collection of prompt management nodes for ComfyUI
+# AF - Pack Prompt Nodes
+
+A lightweight suite of ComfyUI custom nodes for AI prompt management and history tracking.
+
+## 📦 What's Included
+
+**[AF - Edit Generated Prompt](#af---edit-generated-prompt)** - Receive LLM-generated prompts and optionally edit them manually  
+**[AF - Save Prompt History](#af---save-prompt-history)** - Archive prompts to JSON files with timestamps  
+**[AF - Load Prompt History](#af---load-prompt-history)** - Browse and load previous prompts by index
 
 ---
 
-# 🎉 AF - Load Prompt History - FINAL VERSION
+## 🚀 Installation
 
-## Clean, Simple, Rock Solid!
+### Via ComfyUI Manager (Recommended)
+1. Open ComfyUI Manager
+2. Search for "AF - Pack Prompt Nodes"
+3. Install
 
-No widget update issues, no complexity - just pure functionality.
+### Manual Installation
+```bash
+cd ComfyUI/custom_nodes/
+git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
+```
 
 ---
 
-## Node Overview
+## AF - Edit Generated Prompt
 
+**Purpose:** Pipe LLM output through your workflow with optional manual editing.
+
+### How It Works
+- **Upper field** (read-only, grayed): Displays incoming prompt from LLM
+- **Lower field** (editable): Manual input or edited version
+- **Output priority**: Lower field → Upper field → Empty string
+
+### Typical Usage
+```
+[Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
+```
+
+**Key Feature:** Click "Copy Generated Prompt for Editing" to move prompt from upper to lower field for modifications.
+
+---
+
+## AF - Save Prompt History
+
+**Purpose:** Save up to 4 prompts per entry with automatic timestamps.
+
+### Inputs
+- `directory` - Folder name (default: "Prompt-History")
+- `filename` - JSON file name (default: "default")
+- `project` - Project identifier (stored as metadata in JSON for reference)
+- `global_positive/negative` - Main prompts (optional)
+- `local_positive/negative` - Secondary prompts (optional)
+
+### Where Files Are Saved
+1. **Primary:** `ComfyUI/output/{directory}/` (user working files)
+2. **Fallback:** `{node_pack_folder}/{directory}/` (bundled defaults)
+
+### Output Format
+```json
+[
+  {
+    "timestamp": "2025-10-29 14:32:15",
+    "project": "MyProject",
+    "global_positive": "your prompt",
+    "global_negative": "negative prompt",
+    "local_positive": "local detail",
+    "local_negative": "local negative"
+  }
+]
+```
+
+**Note:** All prompts are automatically cleaned (trailing whitespace removed, internal formatting preserved). The `project` field is stored for your reference but not used for filtering.
+
+---
+
+## AF - Load Prompt History
+
+**Purpose:** Load saved prompts using index-based time-travel through your history.
+
+### Quick Reference
 ```
 ┌─────────────────────────────────┐
 │ AF - Load Prompt History        │
 ├─────────────────────────────────┤
 │ directory: [AF-PromptHistory  ] │
-│ project:   [Prompt-History   ▼] │
+│ filename:  [MyProject        ▼] │
 │ timestamp_index: [0           ] │
 ├─────────────────────────────────┤
-│ Outputs (5):                    │
-│ • global_positive (STRING)      │
-│ • global_negative (STRING)      │
-│ • local_positive  (STRING)      │
-│ • local_negative  (STRING)      │
-│ • info (STRING) - Connect to    │
-│   Show Text to see details!     │
+│ Outputs:                        │
+│ • global_positive               │
+│ • global_negative               │
+│ • local_positive                │
+│ • local_negative                │
+│ • info (connect to Show Text!)  │
 └─────────────────────────────────┘
 ```
 
----
+### How It Works
+- **Filename dropdown** - Lists all `.json` files in the directory (without .json extension)
+- **Index selection** - Choose which timestamp to load (0 = newest)
+- **Info output** - Shows selected prompt content and metadata
 
-## How to Use
-
-### **1. Basic Setup**
-
-```
-[AF - Load Prompt History]
-    ├─ global_positive ──> [AF - Edit Generated Prompt] ──> [CLIP Text Encode]
-    ├─ global_negative ──> [AF - Edit Generated Prompt] ──> [CLIP Text Encode]
-    ├─ local_positive  ──> [AF - Edit Generated Prompt] ──> [CLIP Text Encode]
-    ├─ local_negative  ──> [AF - Edit Generated Prompt] ──> [CLIP Text Encode]
-    └─ info ──> [Show Text]
-```
-
-### **2. Set Directory**
-- Default: `AF-PromptHistory`
-- Or use custom path: `/mnt/d/MyPrompts/ProjectA`
-- Supports relative or absolute paths
-
-### **3. Select Project**
-- Dropdown auto-populates with available `.json` files
-- On boot, scans directory and caches projects
-- Change directory → cache refreshes automatically
-
-### **4. Choose Timestamp via Index**
-- `0` = Newest (most recent)
-- `1` = Second newest
-- `2` = Third newest
+### Index System
+- `0` = Most recent prompt
+- `1` = Second most recent
+- `2` = Third most recent
 - etc.
 
-### **5. Connect Info Output**
-**IMPORTANT:** Connect the `info` output to a **Show Text** node to see:
-- Selected timestamp
-- List of all available timestamps with indices
-- Range validation
-- Quick reference guide
+### Directory Priority
+Files in `output/{directory}/` override files in `{node_pack}/{directory}/` with the same name.
 
----
+### Critical: Connect the Info Output!
+Always connect `info` → `Show Text` node to see:
+- Currently selected filename and timestamp
+- Full content of all 4 prompts being loaded
+- Total available timestamps count
+- Error messages if index is out of range
 
-## Example Info Output
-
+### Example Info Display
 ```
 ══════════════════════════════════════════════════
   AF - LOAD PROMPT HISTORY
 ══════════════════════════════════════════════════
+📄 Filename: MyProject
+📊 Available Timestamps: 205
 
-📂 Project: Prompt-History
-📊 Available Timestamps: 4
-🔢 Current Index: 0
+🔢 SELECTED: [126] | 2025-10-29 | 14:32:15
 
-⏰ SELECTED: 2025-10-13 | 23:47:15
+Global Positive:
+A serene mountain landscape at sunset, golden hour lighting...
 
-──────────────────────────────────────────────────
-Available Timestamps (newest first):
-──────────────────────────────────────────────────
-► [ 0] 2025-10-13 | 23:47:15
-  [ 1] 2025-10-10 | 19:32:32
-  [ 2] 2025-10-10 | 19:29:56
-  [ 3] 2025-10-10 | 19:29:22
-──────────────────────────────────────────────────
+Global Negative:
+ugly, deformed, low quality, blurry
 
-💡 TIP: Connect 'info' output to Show Text node
-        to see this selection guide!
+Local Positive:
+detailed foreground rocks, wildflowers
+
+Local Negative:
+(empty)
+```
+
+**Console Output:**
+```
+AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 ```
 
 ---
 
-## Workflow Patterns
+## 🔗 Common Workflow Patterns
 
-### **Pattern 1: Time Machine Workflow**
-Browse your prompt history step by step:
-1. Load node with index = 0 (newest)
-2. Review prompts in Edit nodes
-3. Change index to 1, 2, 3... to go back in time
-4. Find the perfect iteration!
-
-### **Pattern 2: A/B Testing**
+### Pattern 1: AI-Assisted with History Backup
 ```
-[Load A: index=0] ─┐
-                   ├──> [Switch Node] ──> [CLIP Encode]
-[Load B: index=5] ─┘
+[LLM] → [Edit Prompt] → [Save History] → [CLIP Encode] → [KSampler]
 ```
 
-### **Pattern 3: Multi-Project Comparison**
+### Pattern 2: Load & Compare Previous Prompts
 ```
-[Load: ProjectA] ──> [Edit Pos] ──> [Encode]
-[Load: ProjectB] ──> [Edit Pos] ──> [Encode]
-[Load: ProjectC] ──> [Edit Pos] ──> [Encode]
+[Load History: index=0] → [Edit] → [CLIP] ┐
+[Load History: index=5] → [Edit] → [CLIP] ├→ [KSampler]
+[Load History: index=10]→ [Edit] → [CLIP] ┘
 ```
 
-### **Pattern 4: Recommended Setup (Your Workflow)**
+### Pattern 3: Multi-File Workflow
 ```
-[Ollama LLM] ──> [AF - Edit Generated Prompt - Pos G] ─┐
-                                                        │
-[AF - Load Prompt History] ─────────────────────────────┤
-    ├──> [AF - Edit Generated Prompt - Pos L] ─────────┤
-    ├──> [AF - Edit Generated Prompt - Neg G] ─────────┤
-    └──> info ──> [Show Text]                          │
-                                                        ▼
-                                                  [CLIP Encode]
+[Load: FileA.json] → [Edit Global+] → ┐
+[Load: FileB.json] → [Edit Local+]  → ├→ [CLIP Encode]
+[Load: FileC.json] → [Edit Global-] → ┘
 ```
 
 ---
 
-## Directory Priority
+## 🔧 Troubleshooting
 
-The node checks paths in this order:
-
-1. **`{ComfyUI}/output/{directory}/`** (user's working files) ← **PRIORITY**
-2. **`{node_pack}/{directory}/`** (bundled defaults)
-
-Files in `output/` override defaults with same name.
-
----
-
-## Features
-
-✅ **Auto-caching** - Scans directory on ComfyUI boot
-✅ **Smart refresh** - Rebuilds cache when directory changes
-✅ **Index-based** - Simple 0, 1, 2... selection (no dropdown issues!)
-✅ **Detailed info** - Connect to Show Text for full details
-✅ **Visual feedback** - Node border turns green when prompts loaded
-✅ **Persistent state** - Workflow remembers your selections
-✅ **Console logging** - Detailed messages for debugging
-
----
-
-## Console Output
-
-**On Boot:**
-```
-AF Load - Scanning directory: AF-PromptHistory
-AF Load - Found project: Prompt-History
-AF Load - Found project: Testing_v53
-AF Load - Total projects found: 2
-```
-
-**On Execution:**
-```
-AF Load - Executing: dir=AF-PromptHistory, project=Prompt-History, index=0
-AF Load - Loading timestamps from: .../Prompt-History.json
-AF Load - Loaded 4 timestamps
-AF Load - ✓ Successfully loaded: 2025-10-13 | 23:47:15
-```
-
----
-
-## Troubleshooting
-
-### **Projects not showing in dropdown**
+### Files not appearing in dropdown
 - Check ComfyUI console for cache messages
-- Verify `.json` files exist in directory
-- Try changing directory text to force refresh
-- Restart ComfyUI
+- Verify `.json` files exist in `output/{directory}/`
+- Restart ComfyUI to rebuild cache
+- Ensure files end with `.json` extension
 
-### **Index out of range**
-- Check `info` output to see valid range
-- Example: 4 timestamps = valid indices are 0-3
-- Adjust `timestamp_index` accordingly
+### Index out of range
+- Connect `info` output to Show Text to see available count
+- Example: 205 timestamps = valid indices are 0-204
+- The info display shows total count at the top
 
-### **No prompts loading**
-- Ensure project is selected (not "none")
-- Verify timestamp_index is within range
-- Check JSON file format (must be array of objects)
+### Prompts not loading
+- Ensure filename is selected (not "none")
+- Check timestamp_index is within range (see info output)
+- Verify JSON file format matches example above
 - Look for error messages in console
 
-### **Directory not found**
-- Use relative path from ComfyUI root
-- Or use absolute path: `/full/path/to/directory`
-- Check folder permissions
-- Verify folder exists
+### Directory not found
+- Use relative path from ComfyUI root: `AF-PromptHistory`
+- Or absolute path: `/full/path/to/directory`
+- Check folder exists and has read/write permissions
 
 ---
 
-## File Format
+## 💡 Pro Tips
 
-Your JSON files should look like this:
-
-```json
-[
-  {
-    "timestamp": "2025-10-13 23:47:15",
-    "global_positive": "your prompt here",
-    "global_negative": "your negative here",
-    "local_positive": "your local prompt",
-    "local_negative": "your local negative"
-  },
-  {
-    "timestamp": "2025-10-13 17:05:47",
-    "global_positive": "another prompt",
-    ...
-  }
-]
-```
-
-The **AF - Save Prompt History** node creates this format automatically! ✨
+- **Index 0 is your friend** - Always points to newest prompt
+- **Info output shows everything** - See exactly what you loaded
+- **Console logging** - Check ID and timestamp confirmation
+- **Multiple load nodes** - Each can access different files/indices
+- **Workflows persist** - Your selections save with the workflow
+- **Project field** - Use it as a mental note when saving, great for manual inspection
 
 ---
 
-## Pro Tips
+## 📋 Requirements
 
-💡 **Use Index 0 for Latest** - Always start with 0 to get the newest prompt
-
-💡 **Info Output is Your Friend** - Always connect it to Show Text during setup
-
-💡 **Shameless Plug** - Use with **AF - Edit Generated Prompt** nodes for best results! 😉
-
-💡 **Multiple Load Nodes** - Each can point to different projects/indices
-
-💡 **Save Workflow** - Your selections persist when workflow is saved/loaded
-
-💡 **Console is Helpful** - Check it for detailed loading information
+- ComfyUI (recent version recommended)
+- No external dependencies required
+- Works with any LLM/text generation nodes
 
 ---
 
-## What We Removed (And Why)
+## 📄 License
 
-❌ **Preview Widgets in Node** - Caused update issues, unreliable
-✅ **Clean 5-Output Design** - Connect to what you need, rock solid
+MIT License - See LICENSE file for details
 
-This is the **Unix Philosophy**: Do one thing, do it well.
+---
+
+## 🐛 Issues & Contributions
+
+Found a bug? Have a feature request?  
+→ [GitHub Issues](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/issues)
+
+---
+
+## ⚠️ Disclaimer
+
+This ComfyUI custom node is developed through AI-assisted coding. While carefully tested, it is provided **"as is" without warranty**. 
+
+**By using this node pack:**
+- You install and run at your own risk
+- The creator is not liable for damages or data loss
+- Compatibility with your setup is not guaranteed
+- Test in a safe environment before production use
+
+Report issues on GitHub - we appreciate your feedback!
 
 ---
 
 **Made with 🔥 by Alex Furer & Claude AI**
 
 *Simple. Clean. Works every time.* ✨
-
----

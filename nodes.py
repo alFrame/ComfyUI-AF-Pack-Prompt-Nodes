@@ -10,15 +10,22 @@
 #
 # LICENSE: MIT License
 #
-# v1.1.1
+# v1.0.2
 #
 # Usage:
 # Read Me on Github
 #
 # Changelog:
-# "v1.1.1 - Added "project" back in as a tag that get's stored in the json",
-# "v1.1.0 - Complete overhauled Load Prompt node",
+# "v1.0.2 - Changed "project" to "filename" in load prompt node. Changed display on info node. Changed console output to include ID number. Updated README. Fixed Versioning text. Made print out in console less prominent.",
+# "v1.0.1 - Added "project" back in as a tag that get's stored in the json",
+# "v1.0.0 - Merged AF Edit Generated Prompt and AF Prompt History Nodes into single pack. Complete overhauled Load Prompt node.",
 # "v1.0.0 - Initial Version"
+# "v0.0.17 - Updated the init.py and modified the README (from Edit Generated Prompt)",
+# "v0.0.16 - Reorganized metadata to follow ComfyUI standards",
+# "v0.0.15 - Fixed an issue with LiteGraph throwing an error about the spacer widgets",
+# "v0.0.14 - Initial Git Release (Edit Generated Prompt)",
+# "v0.0.02 - Added 4 prompt inputs that save to one CSV line (Prompt History)",
+# "v0.0.01 - Initial Version (Prompt History)"
 #
 # Feature Requests / Wet Dreams
 # -
@@ -186,13 +193,13 @@ class AF_Load_Prompt_History:
     Load prompt history from JSON files using an index-based selection.
     
     Usage:
-    - Select project from dropdown
+    - Select filename from dropdown
     - Set timestamp_index (0 = newest, 1 = second newest, etc.)
     - Connect outputs to Edit Generated Prompt nodes or CLIP encoders
     - Connect 'info' output to Show Text node to see selection details
     """
     
-    _project_cache = {}
+    _filename_cache = {}
     _timestamp_cache = {}
     _last_directory = "AF-PromptHistory"
     
@@ -222,8 +229,8 @@ class AF_Load_Prompt_History:
         return paths
     
     @classmethod
-    def scan_projects(cls, directory):
-        """Scan directory and cache all available projects"""
+    def scan_filenames(cls, directory):
+        """Scan directory and cache all available JSON files"""
         print(f"AF Load - Scanning directory: {directory}")
         paths = cls.get_directory_paths(directory)
         found = {}
@@ -235,31 +242,31 @@ class AF_Load_Prompt_History:
                     name = f[:-5]  # Remove .json extension
                     if name not in found:
                         found[name] = {"path": path, "filename": f}
-                        print(f"AF Load - Found project: {name}")
+                        print(f"AF Load - Found file: {name}")
             except Exception as e:
                 print(f"AF Load - Error scanning {path}: {e}")
         
-        print(f"AF Load - Total projects found: {len(found)}")
+        print(f"AF Load - Total files found: {len(found)}")
         return found
     
     @classmethod
-    def load_timestamps(cls, directory, project):
-        """Load and cache timestamps for a specific project"""
-        cache_key = f"{directory}::{project}"
+    def load_timestamps(cls, directory, filename):
+        """Load and cache timestamps for a specific file"""
+        cache_key = f"{directory}::{filename}"
         
         # Return cached if available
         if cache_key in cls._timestamp_cache:
             return cls._timestamp_cache[cache_key]
         
-        # Rebuild project cache if directory changed
+        # Rebuild filename cache if directory changed
         if directory != cls._last_directory:
-            cls._project_cache = cls.scan_projects(directory)
+            cls._filename_cache = cls.scan_filenames(directory)
             cls._last_directory = directory
         
-        if project not in cls._project_cache:
+        if filename not in cls._filename_cache:
             return []
         
-        info = cls._project_cache[project]
+        info = cls._filename_cache[filename]
         json_path = os.path.join(info["path"], info["filename"])
         
         print(f"AF Load - Loading timestamps from: {json_path}")
@@ -287,12 +294,12 @@ class AF_Load_Prompt_History:
             return []
     
     @classmethod
-    def load_prompt(cls, directory, project, timestamp):
+    def load_prompt(cls, directory, filename, timestamp):
         """Load prompt data for a specific timestamp"""
-        if project not in cls._project_cache:
+        if filename not in cls._filename_cache:
             return None
         
-        info = cls._project_cache[project]
+        info = cls._filename_cache[filename]
         json_path = os.path.join(info["path"], info["filename"])
         
         # Convert formatted timestamp back to original format
@@ -320,15 +327,15 @@ class AF_Load_Prompt_History:
     @classmethod
     def INPUT_TYPES(cls):
         # Initialize cache on first call
-        if not cls._project_cache:
-            cls._project_cache = cls.scan_projects(cls._last_directory)
+        if not cls._filename_cache:
+            cls._filename_cache = cls.scan_filenames(cls._last_directory)
         
-        projects = sorted(cls._project_cache.keys()) if cls._project_cache else ["none"]
+        filenames = sorted(cls._filename_cache.keys()) if cls._filename_cache else ["none"]
         
         return {
             "required": {
                 "directory": ("STRING", {"default": "AF-PromptHistory"}),
-                "project": (projects,),
+                "filename": (filenames,),
                 "timestamp_index": ("INT", {
                     "default": 0, 
                     "min": 0, 
@@ -348,7 +355,7 @@ class AF_Load_Prompt_History:
     FUNCTION = "load_prompts"
     CATEGORY = "AF - Nodes/AF - Prompt Pack"
 
-    def load_prompts(self, directory, project, timestamp_index, tip=""):
+    def load_prompts(self, directory, filename, timestamp_index, tip=""):
         """
         Main execution function - loads prompts based on index selection
         
@@ -358,80 +365,68 @@ class AF_Load_Prompt_History:
             - Last output 'info': Selection details and timestamp list (connect to Show Text)
         """
         
-        print(f"\nAF Load - Executing: dir={directory}, project={project}, index={timestamp_index}")
+        print(f"\nAF Load - Executing: dir={directory}, filename={filename}, index={timestamp_index}")
         
         # Update cache if directory changed
         if directory != self._last_directory:
-            self._project_cache = self.scan_projects(directory)
+            self._filename_cache = self.scan_filenames(directory)
             self._last_directory = directory
         
-        # Load timestamps for selected project
+        # Load timestamps for selected file
         timestamps = []
-        if project and project != "none" and project in self._project_cache:
-            timestamps = self.load_timestamps(directory, project)
+        if filename and filename != "none" and filename in self._filename_cache:
+            timestamps = self.load_timestamps(directory, filename)
         
         # Get timestamp by index
         selected_timestamp = ""
         if timestamps and 0 <= timestamp_index < len(timestamps):
             selected_timestamp = timestamps[timestamp_index]
         
-        # Build info display text
-        info_lines = [
-            "═" * 50,
-            "  AF - LOAD PROMPT HISTORY",
-            "═" * 50,
-            "",
-            f"📂 Project: {project}",
-            f"📊 Available Timestamps: {len(timestamps)}",
-            f"🔢 Current Index: {timestamp_index}",
-            ""
-        ]
-        
-        if selected_timestamp:
-            info_lines.append(f"⏰ SELECTED: {selected_timestamp}")
-            info_lines.append("")
-        elif timestamps:
-            info_lines.append(f"⚠️  Index {timestamp_index} out of range!")
-            info_lines.append(f"   Valid range: 0 to {len(timestamps)-1}")
-            info_lines.append("")
-        else:
-            info_lines.append("⚠️  No timestamps found in this project")
-            info_lines.append("")
-        
-        # Add timestamp list for easy reference
-        if timestamps:
-            info_lines.append("─" * 50)
-            info_lines.append("Available Timestamps (newest first):")
-            info_lines.append("─" * 50)
-            
-            # Show first 10 timestamps with index numbers
-            for i, ts in enumerate(timestamps[:10]):
-                marker = "►" if i == timestamp_index else " "
-                info_lines.append(f"{marker} [{i:2d}] {ts}")
-            
-            if len(timestamps) > 10:
-                info_lines.append(f"     ... and {len(timestamps)-10} more")
-            
-            info_lines.append("─" * 50)
-            info_lines.append("")
-            info_lines.append("💡 TIP: Connect 'info' output to Show Text node")
-            info_lines.append("        to see this selection guide!")
-        
-        info_text = "\n".join(info_lines)
-        
         # Load actual prompt data
         gp = gn = lp = ln = ""
         
         if selected_timestamp:
-            data = self.load_prompt(directory, project, selected_timestamp)
+            data = self.load_prompt(directory, filename, selected_timestamp)
             if data:
                 gp = data["global_positive"]
                 gn = data["global_negative"]
                 lp = data["local_positive"]
                 ln = data["local_negative"]
-                print(f"AF Load - ✓ Successfully loaded: {selected_timestamp}")
+                print(f"AF Load - ✓ Successfully loaded: ID: {timestamp_index} | {selected_timestamp.replace(' | ', ' ')}")
             else:
                 print(f"AF Load - ✗ Failed to load prompt data")
+        
+        # Build info display text
+        info_lines = [
+            "═" * 50,
+            "  AF - LOAD PROMPT HISTORY",
+            "═" * 50,
+            f"📄 Filename: {filename}",
+            f"📊 Available Timestamps: {len(timestamps)}",
+            ""
+        ]
+        
+        if selected_timestamp:
+            info_lines.append(f"🔢 SELECTED: [{timestamp_index}] | {selected_timestamp}")
+            info_lines.append("")
+            info_lines.append("Global Positive:")
+            info_lines.append(gp if gp else "(empty)")
+            info_lines.append("")
+            info_lines.append("Global Negative:")
+            info_lines.append(gn if gn else "(empty)")
+            info_lines.append("")
+            info_lines.append("Local Positive:")
+            info_lines.append(lp if lp else "(empty)")
+            info_lines.append("")
+            info_lines.append("Local Negative:")
+            info_lines.append(ln if ln else "(empty)")
+        elif timestamps:
+            info_lines.append(f"⚠️  Index {timestamp_index} out of range!")
+            info_lines.append(f"   Valid range: 0 to {len(timestamps)-1}")
+        else:
+            info_lines.append("⚠️  No timestamps found in this file")
+        
+        info_text = "\n".join(info_lines)
         
         return (gp, gn, lp, ln, info_text)
     
