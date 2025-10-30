@@ -43,7 +43,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 <img width="2095" height="521" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
 
-[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/example_workflows/AF-Edit_Generated_Prompt.json)
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Edit_Generated_Prompt.json)
 
 **Key Feature:** Click "Copy Generated Prompt for Editing" to move prompt from upper to lower field for modifications.
 
@@ -64,7 +64,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 <img width="1726" height="679" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Save_Prompt_History_Workflow_Example.png" />
 
-[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/example_workflows/AF-Save_and_Load_Prompt_History.json)
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
 ### Where Files Are Saved
 1. **Primary:** `ComfyUI/output/{directory}/` (user working files)
@@ -119,7 +119,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 <img width="1564" height="935" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Load_Prompt_History_Workflow_Example.png" />
 
-[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/example_workflows/AF-Save_and_Load_Prompt_History.json)
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
 ### Index System
 - `0` = Most recent prompt
