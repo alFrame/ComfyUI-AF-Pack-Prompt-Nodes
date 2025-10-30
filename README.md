@@ -34,10 +34,16 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Lower field** (editable): Manual input or edited version
 - **Output priority**: Lower field → Upper field → Empty string
 
+- <img width="1890" height="919" alt="image" src="https://github.com/user-attachments/assets/229f0070-f26c-4b95-b31f-952a59dfb70c" />
+
 ### Typical Usage
 ```
 [Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
 ```
+
+<img width="2095" height="521" alt="image" src="https://github.com/user-attachments/assets/11715608-4959-473f-bbb1-fbafcb108982" />
+
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Edit_Generated_Prompt.json)
 
 **Key Feature:** Click "Copy Generated Prompt for Editing" to move prompt from upper to lower field for modifications.
 
@@ -47,12 +53,18 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Save up to 4 prompts per entry with automatic timestamps.
 
+<img width="1877" height="609" alt="image" src="https://github.com/user-attachments/assets/9e7b4eb4-ade6-4b60-80f7-a847d2b07641" />
+
 ### Inputs
 - `directory` - Folder name (default: "Prompt-History")
 - `filename` - JSON file name (default: "default")
 - `project` - Project identifier (stored as metadata in JSON for reference)
 - `global_positive/negative` - Main prompts (optional)
 - `local_positive/negative` - Secondary prompts (optional)
+
+<img width="1726" height="679" alt="image" src="https://github.com/user-attachments/assets/b093300c-c461-4df4-b717-e95c1a456020" />
+
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
 ### Where Files Are Saved
 1. **Primary:** `ComfyUI/output/{directory}/` (user working files)
@@ -80,6 +92,8 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Load saved prompts using index-based time-travel through your history.
 
+<img width="1095" height="945" alt="image" src="https://github.com/user-attachments/assets/932da6e0-cd4d-4e5e-ad53-f53845692c7e" />
+
 ### Quick Reference
 ```
 ┌─────────────────────────────────┐
@@ -102,6 +116,10 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Filename dropdown** - Lists all `.json` files in the directory (without .json extension)
 - **Index selection** - Choose which timestamp to load (0 = newest)
 - **Info output** - Shows selected prompt content and metadata
+
+<img width="1564" height="935" alt="image" src="https://github.com/user-attachments/assets/a0cbea48-fe6e-425d-bfac-5c4820b23125" />
+
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
 ### Index System
 - `0` = Most recent prompt
