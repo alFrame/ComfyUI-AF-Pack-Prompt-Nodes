@@ -34,16 +34,16 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Lower field** (editable): Manual input or edited version
 - **Output priority**: Lower field → Upper field → Empty string
 
-- <img width="1890" height="919" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
+- <img width="1890" height="919" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
 
 ### Typical Usage
 ```
 [Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
 ```
 
-<img width="2095" height="521" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
+<img width="2095" height="521" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
 
-[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Edit_Generated_Prompt.json)
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/example_workflows/AF-Edit_Generated_Prompt.json)
 
 **Key Feature:** Click "Copy Generated Prompt for Editing" to move prompt from upper to lower field for modifications.
 
@@ -53,7 +53,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Save up to 4 prompts per entry with automatic timestamps.
 
-<img width="1877" height="609" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Save_Prompt_History_Node.png" />
+<img width="1877" height="609" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Save_Prompt_History_Node.png" />
 
 ### Inputs
 - `directory` - Folder name (default: "Prompt-History")
@@ -62,9 +62,9 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - `global_positive/negative` - Main prompts (optional)
 - `local_positive/negative` - Secondary prompts (optional)
 
-<img width="1726" height="679" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Save_Prompt_History_Workflow_Example.png" />
+<img width="1726" height="679" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Save_Prompt_History_Workflow_Example.png" />
 
-[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Save_and_Load_Prompt_History.json)
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
 ### Where Files Are Saved
 1. **Primary:** `ComfyUI/output/{directory}/` (user working files)
@@ -92,7 +92,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Load saved prompts using index-based time-travel through your history.
 
-<img width="1095" height="945" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Load_Prompt_History_Node.png" />
+<img width="1095" height="945" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Load_Prompt_History_Node.png" />
 
 ### Quick Reference
 ```
@@ -117,9 +117,9 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Index selection** - Choose which timestamp to load (0 = newest)
 - **Info output** - Shows selected prompt content and metadata
 
-<img width="1564" height="935" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Load_Prompt_History_Workflow_Example.png" />
+<img width="1564" height="935" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Load_Prompt_History_Workflow_Example.png" />
 
-[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Save_and_Load_Prompt_History.json)
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
 ### Index System
 - `0` = Most recent prompt
