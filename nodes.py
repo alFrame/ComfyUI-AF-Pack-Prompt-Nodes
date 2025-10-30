@@ -148,13 +148,30 @@ class AF_Save_Prompt_History:
             # Remove trailing whitespace and newlines, but preserve internal formatting
             return prompt.rstrip()
         
+        # Clean the new prompts
+        cleaned_gp = clean_prompt(global_positive)
+        cleaned_gn = clean_prompt(global_negative)
+        cleaned_lp = clean_prompt(local_positive)
+        cleaned_ln = clean_prompt(local_negative)
+        
+        # Check if prompts are identical to the last entry
+        if existing_data:
+            last_entry = existing_data[-1]
+            if (last_entry.get('global_positive', '') == cleaned_gp and
+                last_entry.get('global_negative', '') == cleaned_gn and
+                last_entry.get('local_positive', '') == cleaned_lp and
+                last_entry.get('local_negative', '') == cleaned_ln):
+                # Prompts haven't changed - skip saving
+                print(f"AF Save Prompt History - Skipped (no changes detected)")
+                return (global_positive, global_negative, local_positive, local_negative)
+        
         new_entry = {
             'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'project': project.strip(),
-            'global_positive': clean_prompt(global_positive),
-            'global_negative': clean_prompt(global_negative),
-            'local_positive': clean_prompt(local_positive),
-            'local_negative': clean_prompt(local_negative),
+            'global_positive': cleaned_gp,
+            'global_negative': cleaned_gn,
+            'local_positive': cleaned_lp,
+            'local_negative': cleaned_ln,
         }
         
         existing_data.append(new_entry)
