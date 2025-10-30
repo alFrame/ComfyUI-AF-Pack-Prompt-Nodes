@@ -1,6 +1,6 @@
 {
-  "name": "comfyui-af-prompt-nodes-pack",
-  "version": "1.0.5", 
+  "name": "comfyui-af-pack-prompt-nodes",
+  "version": "1.0.6", 
   "description": "A lightweight suite of ComfyUI custom nodes for AI prompt management and history tracking.",
   "author": "Alex Furer",
   "license": "MIT",

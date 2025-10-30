@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.6] - 2025-10-30
+- Minor changes for registry compliance
+
 ## [1.0.5] - 2025-10-30
 ### Changed
 - Added screenshots
