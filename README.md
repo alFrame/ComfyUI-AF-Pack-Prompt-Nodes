@@ -86,9 +86,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Note:** All prompts are automatically cleaned (trailing whitespace removed, internal formatting preserved). The `project` field is stored for your reference but not used for filtering.
 
----
-
-## 🔗 Common Workflow Patterns
+### 🔗 Common Workflow Patterns
 
 ### AI-Assisted with History Backup with the "AF - Save Prompt History" Node
 ```
@@ -173,9 +171,7 @@ Local Negative:
 AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 ```
 
----
-
-## 🔗 Common Workflow Patterns (suggestions)
+### 🔗 Common Workflow Patterns (suggestions)
 
 ### "AF - Load Prompt History" Node, Compare Previous Prompts
 ```
