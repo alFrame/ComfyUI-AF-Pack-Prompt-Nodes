@@ -1,8 +1,17 @@
 # Changelog
 
+## [1.0.5] - 2025-10-30
+### Changed
+- Added screenshots
+- Added workflow examples
+- Updated README
+
 ## [1.0.4] - 2025-10-30
 ### Changed
 - Save Prompt History now only saves, when the prompt changed, eliminating duplicate prompts in the archive.
+- Added screenshots
+- Added workflow examples
+- Updated README
 
 ## [1.0.3] - 2025-10-29
 ### Changed
