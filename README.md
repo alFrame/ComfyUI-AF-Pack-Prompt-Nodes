@@ -34,14 +34,14 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Lower field** (editable): Manual input or edited version
 - **Output priority**: Lower field → Upper field → Empty string
 
-- <img width="1890" height="919" alt="image" src="https://github.com/user-attachments/assets/229f0070-f26c-4b95-b31f-952a59dfb70c" />
+- <img width="1890" height="919" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
 
 ### Typical Usage
 ```
 [Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
 ```
 
-<img width="2095" height="521" alt="image" src="https://github.com/user-attachments/assets/11715608-4959-473f-bbb1-fbafcb108982" />
+<img width="2095" height="521" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Edit_Generated_Prompt.json)
 
@@ -53,7 +53,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Save up to 4 prompts per entry with automatic timestamps.
 
-<img width="1877" height="609" alt="image" src="https://github.com/user-attachments/assets/9e7b4eb4-ade6-4b60-80f7-a847d2b07641" />
+<img width="1877" height="609" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Save_Prompt_History_Node.png" />
 
 ### Inputs
 - `directory` - Folder name (default: "Prompt-History")
@@ -62,7 +62,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - `global_positive/negative` - Main prompts (optional)
 - `local_positive/negative` - Secondary prompts (optional)
 
-<img width="1726" height="679" alt="image" src="https://github.com/user-attachments/assets/b093300c-c461-4df4-b717-e95c1a456020" />
+<img width="1726" height="679" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Save_Prompt_History_Workflow_Example.png" />
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
@@ -92,7 +92,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Load saved prompts using index-based time-travel through your history.
 
-<img width="1095" height="945" alt="image" src="https://github.com/user-attachments/assets/932da6e0-cd4d-4e5e-ad53-f53845692c7e" />
+<img width="1095" height="945" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Load_Prompt_History_Node.png" />
 
 ### Quick Reference
 ```
@@ -117,7 +117,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Index selection** - Choose which timestamp to load (0 = newest)
 - **Info output** - Shows selected prompt content and metadata
 
-<img width="1564" height="935" alt="image" src="https://github.com/user-attachments/assets/a0cbea48-fe6e-425d-bfac-5c4820b23125" />
+<img width="1564" height="935" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/Docs/screenshots/AF-Load_Prompt_History_Workflow_Example.png" />
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/example_workflows/AF-Save_and_Load_Prompt_History.json)
 
@@ -169,24 +169,17 @@ AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 
 ## 🔗 Common Workflow Patterns
 
-### Pattern 1: AI-Assisted with History Backup
+### AI-Assisted with History Backup with the "AF - Save Prompt History" Node
 ```
 [LLM] → [Edit Prompt] ┬ → [CLIP Encode] → [KSampler]
                       └ → [Save History]
 ```
 
-### Pattern 2: Load & Compare Previous Prompts
+### "AF - Load Prompt History" Node, Compare Previous Prompts
 ```
 [Load History: index=0] → [Edit] → [CLIP] ┐
 [Load History: index=5] → [Edit] → [CLIP] ├→ [KSampler]
 [Load History: index=10]→ [Edit] → [CLIP] ┘
-```
-
-### Pattern 3: Multi-File Workflow
-```
-[Load: FileA.json] → [Edit Global+] → ┐
-[Load: FileB.json] → [Edit Local+]  → ├→ [CLIP Encode]
-[Load: FileC.json] → [Edit Global-] → ┘
 ```
 
 ---
@@ -211,7 +204,7 @@ AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 - Look for error messages in console
 
 ### Directory not found
-- Use relative path from ComfyUI root: `AF-PromptHistory`
+- Use relative path from ComfyUI root e.g.: `AF-PromptHistory`
 - Or absolute path: `/full/path/to/directory`
 - Check folder exists and has read/write permissions
 
@@ -232,7 +225,7 @@ AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 
 - ComfyUI (recent version recommended)
 - No external dependencies required
-- Works with any LLM/text generation nodes
+- Works with any LLM/text generation nodes, or your manual prompting text nodes
 
 ---
 
