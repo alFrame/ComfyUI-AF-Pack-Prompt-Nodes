@@ -88,6 +88,14 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 ---
 
+## 🔗 Common Workflow Patterns
+
+### AI-Assisted with History Backup with the "AF - Save Prompt History" Node
+```
+[LLM] → [Edit Prompt] ┬ → [CLIP Encode] → [KSampler]
+                      └ → [Save History]
+```
+
 ## AF - Load Prompt History
 
 **Purpose:** Load saved prompts using index-based time-travel through your history.
@@ -167,19 +175,20 @@ AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 
 ---
 
-## 🔗 Common Workflow Patterns
-
-### AI-Assisted with History Backup with the "AF - Save Prompt History" Node
-```
-[LLM] → [Edit Prompt] ┬ → [CLIP Encode] → [KSampler]
-                      └ → [Save History]
-```
+## 🔗 Common Workflow Patterns (suggestions)
 
 ### "AF - Load Prompt History" Node, Compare Previous Prompts
 ```
 [Load History: index=0] → [Edit] → [CLIP] ┐
 [Load History: index=5] → [Edit] → [CLIP] ├→ [KSampler]
 [Load History: index=10]→ [Edit] → [CLIP] ┘
+```
+
+### Pattern 3: Multi-File Workflow
+```
+[Load: FileA.json] → [Edit Global+] → ┐
+[Load: FileB.json] → [Edit Local+]  → ├→ [CLIP Encode]
+[Load: FileC.json] → [Edit Global-] → ┘
 ```
 
 ---
