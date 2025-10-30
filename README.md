@@ -94,6 +94,8 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
                       └ → [Save History]
 ```
 
+---
+
 ## AF - Load Prompt History
 
 **Purpose:** Load saved prompts using index-based time-travel through your history.
