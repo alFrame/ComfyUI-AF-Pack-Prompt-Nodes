@@ -11,4 +11,4 @@ Repository = "https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes"
 [tool.comfy]
 PublisherId = "alframe"
 DisplayName = "ComfyUI AF - Pack-Prompt-Nodes"
-Icon = ""
+Icon = "https://raw.githubusercontent.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/main/Docs/icon.png"
