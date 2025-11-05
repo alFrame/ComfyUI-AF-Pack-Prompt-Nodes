@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.7] - 2025-11-05
+- Changed Icon location to my own website as the ComfyUI Registry botched out on any GitHub URL I tried...
+
 ## [1.0.6] - 2025-10-30
 - Minor changes for registry compliance
 
