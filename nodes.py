@@ -51,7 +51,7 @@ class AF_Edit_Generated_Prompt:
     RETURN_TYPES = ("STRING",)
     FUNCTION = "process"
     CATEGORY = "AF - Nodes/AF - Prompt Pack"
-    OUTPUT_NODE = False
+    OUTPUT_NODE = True
     
     def process(self, generated_prompt="", manual_or_paste_generated="", input_text=""):
         generated_prompt = generated_prompt or ""
@@ -437,6 +437,44 @@ class AF_Load_Prompt_History:
         """Force re-evaluation on any input change"""
         import time
         return time.time()
+
+# =============================================================================
+# AF - Show Text Node
+# =============================================================================
+
+class AF_Show_Text:
+    """
+    Simple text display node - shows text in a large multiline read-only display.
+    Perfect for showing prompt history, info text, or any multiline content.
+    """
+    
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "text": ("STRING", {
+                    "multiline": True,
+                    "default": "No input connected",
+                    "readonly": True
+                }),
+            },
+            "hidden": {
+                "unique_id": "UNIQUE_ID",
+                "extra_pnginfo": "EXTRA_PNGINFO",
+            },
+        }
+    
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "display_text"
+    CATEGORY = "AF - Nodes/AF - Prompt Pack"
+    OUTPUT_NODE = True
+    
+    def display_text(self, text, unique_id=None, extra_pnginfo=None):
+        # Return both UI update and pass-through output
+        return {
+            "ui": {"text": [str(text)]},
+            "result": (text,)
+        }
         
 # =============================================================================
 # Node Mappings
@@ -446,10 +484,12 @@ NODE_CLASS_MAPPINGS = {
     "AF_Edit_Generated_Prompt": AF_Edit_Generated_Prompt,
     "AF_Save_Prompt_History": AF_Save_Prompt_History,
     "AF_Load_Prompt_History": AF_Load_Prompt_History,
+    "AF_Show_Text": AF_Show_Text,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "AF_Edit_Generated_Prompt": "AF - Edit Generated Prompt",
     "AF_Save_Prompt_History": "AF - Save Prompt History", 
     "AF_Load_Prompt_History": "AF - Load Prompt History",
+    "AF_Show_Text": "AF - Show Text",
 }

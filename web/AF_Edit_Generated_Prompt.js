@@ -28,7 +28,33 @@ app.registerExtension({
                 return r;
             };
         }
-    },
+
+		// Update the onExecuted handler for Show Text node
+		if (nodeData.name === "AF_Show_Text") {
+			const onExecuted = nodeType.prototype.onExecuted;
+			nodeType.prototype.onExecuted = function (message) {
+				const r = onExecuted ? onExecuted.apply(this, arguments) : undefined;
+				
+				// Update text display
+				let displayText = "";
+				if (message.ui && message.ui.text) {
+					displayText = message.ui.text[0] || "";
+				} else if (message.text) {
+					displayText = message.text[0] || "";
+				}
+				
+				if (displayText) {
+					let displayWidget = this.widgets?.find(w => w.name === "text");
+					if (displayWidget) {
+						displayWidget.value = displayText;
+						this.setDirtyCanvas(true, true);
+					}
+				}
+				
+				return r;
+			};
+		}
+	},
     
     async nodeCreated(node, app) {
         if (node.comfyClass === "AF_Edit_Generated_Prompt") {
@@ -99,5 +125,17 @@ app.registerExtension({
                 
             }, 50);
         }
+		
+		// Handle Show Text node creation
+		if (node.comfyClass === "AF_Show_Text") {
+			setTimeout(() => {
+				const displayWidget = node.widgets?.find(w => w.name === "text");
+				if (displayWidget?.inputEl) {
+					displayWidget.inputEl.readOnly = true;
+					displayWidget.inputEl.style.cursor = "text";
+				}
+				node.size = [500, 300]; // Just make node bigger
+			}, 50);
+		}
     }
 });
