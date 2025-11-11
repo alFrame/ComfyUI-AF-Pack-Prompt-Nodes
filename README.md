@@ -35,7 +35,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Lower field** (editable): Manual input or edited version
 - **Output priority**: Lower field → Upper field → Empty string
 
-- <img width="1890" height="919" alt="AF - Edit Generated Prompt" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
+<img width="1890" height="919" alt="AF - Edit Generated Prompt" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
 
 #### Short Video
 
