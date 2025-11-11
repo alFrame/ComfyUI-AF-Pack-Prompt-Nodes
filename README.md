@@ -41,6 +41,8 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VJmRcnJ60fc?si=y4IgD_9zRHbrQ0ms" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VJmRcnJ60fc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>   
+
 ### Typical Usage
 ```
 [Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
