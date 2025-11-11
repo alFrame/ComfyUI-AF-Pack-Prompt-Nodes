@@ -134,7 +134,12 @@ app.registerExtension({
 					displayWidget.inputEl.readOnly = true;
 					displayWidget.inputEl.style.cursor = "text";
 				}
-				node.size = [500, 300]; // Just make node bigger
+				
+				// ComfyUI sets new nodes with size around [140, 70] 
+				// If it's that small, it's probably a brand new node
+				if (node.size && node.size[0] <= 150 && node.size[1] <= 100) {
+					node.size = [500, 300]; // Default size for new nodes only
+				}
 			}, 50);
 		}
     }

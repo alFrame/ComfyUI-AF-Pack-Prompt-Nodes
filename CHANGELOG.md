@@ -1,9 +1,13 @@
 # Changelog
 
-## [1.0.8] - 2025-11-10
-- Fixed an error on the "Edit Generated Prompt" node  (invalid prompt: {'type': 'prompt_no_outputs', 'message': 'Prompt has no outputs', 'details': '', 'extra_info': {}} )
-- Added a "Show Text" node, so folks don't have to install any other custom nodes to run the example workflow (Yeah ComfyUI does NOT have a simple show text node...)
+## [1.0.9] - 2025-11-11
+- Added "Show Text" node documentation
+- Added a video about the "Edit Generated Prompt" node
 - Updated the workflow example to use my own "Show Text" node
+
+## [1.0.8] - 2025-11-10
+- Fixed an error on the "Edit Generated Prompt" node  ( invalid prompt: {'type': 'prompt_no_outputs', 'message': 'Prompt has no outputs', 'details': '', 'extra_info': {}} )
+- Added a "Show Text" node, so folks don't have to install any other custom nodes to run the example workflow (Yeah ComfyUI does NOT have a simple show text node...)
 
 ## [1.0.7] - 2025-11-05
 - Changed Icon location to my own website as the ComfyUI Registry botched out on any GitHub URL I tried...

@@ -6,7 +6,8 @@ A lightweight suite of ComfyUI custom nodes for AI prompt management and history
 
 **[AF - Edit Generated Prompt](#af---edit-generated-prompt)** - Receive LLM-generated prompts and optionally edit them manually  
 **[AF - Save Prompt History](#af---save-prompt-history)** - Archive prompts to JSON files with timestamps  
-**[AF - Load Prompt History](#af---load-prompt-history)** - Browse and load previous prompts by index
+**[AF - Load Prompt History](#af---load-prompt-history)** - Browse and load previous prompts by index  
+**[AF - Show Text](#af---show-text)** - Browse and load previous prompts by index
 
 ---
 
@@ -34,14 +35,18 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Lower field** (editable): Manual input or edited version
 - **Output priority**: Lower field → Upper field → Empty string
 
-- <img width="1890" height="919" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
+- <img width="1890" height="919" alt="AF - Edit Generated Prompt" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
+
+#### Short Video
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VJmRcnJ60fc?si=y4IgD_9zRHbrQ0ms" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Typical Usage
 ```
 [Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
 ```
 
-<img width="2095" height="521" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
+<img width="2095" height="521" alt="AF - Edit Generated Prompt - Workflow Download" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Edit_Generated_Prompt.json) (right click -> save as...)
 
@@ -53,7 +58,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Save up to 4 prompts per entry with automatic timestamps.
 
-<img width="1877" height="609" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Save_Prompt_History_Node.png" />
+<img width="1877" height="609" alt="AF - Save Prompt History" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Save_Prompt_History_Node.png" />
 
 ### Inputs
 - `directory` - Folder name (default: "Prompt-History")
@@ -62,7 +67,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - `global_positive/negative` - Main prompts (optional)
 - `local_positive/negative` - Secondary prompts (optional)
 
-<img width="1726" height="679" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Save_Prompt_History_Workflow_Example.png" />
+<img width="1726" height="679" alt="Af - Save Prompt History - Workflow Download" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Save_Prompt_History_Workflow_Example.png" />
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Save_and_Load_Prompt_History.json) (right click -> save as...)
 
@@ -100,7 +105,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 **Purpose:** Load saved prompts using index-based time-travel through your history.
 
-<img width="1095" height="945" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Load_Prompt_History_Node.png" />
+<img width="1095" height="945" alt="AF - Load Prompt History" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Load_Prompt_History_Node.png" />
 
 ### Quick Reference
 ```
@@ -125,7 +130,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Index selection** - Choose which timestamp to load (0 = newest)
 - **Info output** - Shows selected prompt content and metadata
 
-<img width="1564" height="935" alt="image" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Load_Prompt_History_Workflow_Example.png" />
+<img width="1564" height="935" alt="AF - Load Prompt History - Workflow Download" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Load_Prompt_History_Workflow_Example.png" />
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Save_and_Load_Prompt_History.json) (right click -> save as...)
 
@@ -188,6 +193,15 @@ AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 [Load: FileB.json] → [Edit Local+]  → ├→ [CLIP Encode]
 [Load: FileC.json] → [Edit Global-] → ┘
 ```
+
+---
+
+### AF - Show Text
+
+A very simple node that shows the text connected to the input of the Node
+
+<img width="1052" height="550" alt="AF - Show Text" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Show_Text_Node.png" />
+
 
 ---
 
