@@ -39,7 +39,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 #### Short Video
 
-https://github.com/user-attachments/assets/fd9c83f9-ea6b-4501-a804-33cfae3dfdd2
+https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
 
 [Watch the Video on Youtube in higher Resolution](https://www.youtube.com/watch?v=VJmRcnJ60fc)   
 
