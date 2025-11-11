@@ -7,7 +7,7 @@ A lightweight suite of ComfyUI custom nodes for AI prompt management and history
 **[AF - Edit Generated Prompt](#af---edit-generated-prompt)** - Receive LLM-generated prompts and optionally edit them manually  
 **[AF - Save Prompt History](#af---save-prompt-history)** - Archive prompts to JSON files with timestamps  
 **[AF - Load Prompt History](#af---load-prompt-history)** - Browse and load previous prompts by index  
-**[AF - Show Text](#af---show-text)** - Browse and load previous prompts by index
+**[AF - Show Text](#af---show-text)** - SImple node that disp;ays the connected text
 
 ---
 
