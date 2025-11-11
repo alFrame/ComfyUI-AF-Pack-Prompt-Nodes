@@ -39,7 +39,7 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 #### Short Video
 
-[![Watch the demo](https://raw.githubusercontent.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/main/Docs/screenshots/AF-Edit-Generated-Prompt_Thumbnail.jpg)](https://www.youtube.com/watch?v=VJmRcnJ60fc)
+[Watch the Video on Youtube in higher Resolution](https://www.youtube.com/watch?v=VJmRcnJ60fc)   
 
 ### Typical Usage
 ```
