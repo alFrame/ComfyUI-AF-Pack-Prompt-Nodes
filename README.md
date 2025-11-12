@@ -45,6 +45,10 @@ https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
 
 [Watch this node in a workflow - A real world example !!](https://youtu.be/H0ZfDIShJLQ)
 
+<a href="https://youtu.be/H0ZfDIShJLQ">
+  <img src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit-Generated-Prompt_Workflow_SmallThumb.jpg" width="100%" alt="Click to watch">
+</a>
+
 ### Typical Usage
 ```
 [Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
