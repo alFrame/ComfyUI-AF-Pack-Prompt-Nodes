@@ -35,6 +35,8 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 - **Lower field** (editable): Manual input or edited version
 - **Output priority**: Lower field → Upper field → Empty string
 
+**Key Feature:** Click "Copy Generated Prompt for Editing" to move prompt from upper to lower field for modifications.
+
 <img width="1890" height="919" alt="AF - Edit Generated Prompt" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
 
 #### Short Video
@@ -57,8 +59,6 @@ https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
 <img width="2095" height="521" alt="AF - Edit Generated Prompt - Workflow Download" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Edit_Generated_Prompt.json) (right click -> save as...)
-
-**Key Feature:** Click "Copy Generated Prompt for Editing" to move prompt from upper to lower field for modifications.
 
 ---
 
