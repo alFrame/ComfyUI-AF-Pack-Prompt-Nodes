@@ -39,6 +39,17 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 <img width="1890" height="919" alt="AF - Edit Generated Prompt" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Node.png" />
 
+### Typical Usage
+```
+[Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
+```
+
+<img width="2095" height="521" alt="AF - Edit Generated Prompt - Workflow Download" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
+
+[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Edit_Generated_Prompt.json) (right click -> save as...)
+
+---
+
 #### Short Video
 
 https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
@@ -50,17 +61,6 @@ https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
 <a href="https://youtu.be/H0ZfDIShJLQ">
   <img src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit-Generated-Prompt_Workflow_SmallThumb.jpg" width="100%" alt="Click to watch">
 </a>
-
-### Typical Usage
-```
-[Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
-```
-
-<img width="2095" height="521" alt="AF - Edit Generated Prompt - Workflow Download" src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit_Generated_Prompt_Workflow_Example.png" />
-
-[Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Edit_Generated_Prompt.json) (right click -> save as...)
-
----
 
 ## AF - Save Prompt History
 
