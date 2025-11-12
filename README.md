@@ -43,6 +43,8 @@ https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
 
 [Watch the Video on Youtube in higher Resolution](https://www.youtube.com/watch?v=VJmRcnJ60fc)   
 
+[Watch this node in a workflow - A real world example !!](https://youtu.be/H0ZfDIShJLQ)
+
 ### Typical Usage
 ```
 [Ollama/LLM Node] → [AF - Edit Generated Prompt] → [CLIP Text Encode]
