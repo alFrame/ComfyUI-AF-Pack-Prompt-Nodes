@@ -48,8 +48,6 @@ git clone https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes.git
 
 [Download example workflow](https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/example_workflows/AF-Edit_Generated_Prompt.json) (right click -> save as...)
 
----
-
 #### Short Video
 
 https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
@@ -61,6 +59,8 @@ https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
 <a href="https://youtu.be/H0ZfDIShJLQ">
   <img src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit-Generated-Prompt_Workflow_SmallThumb.jpg" width="100%" alt="Click to watch">
 </a>
+
+---
 
 ## AF - Save Prompt History
 
