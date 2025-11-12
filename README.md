@@ -43,7 +43,7 @@ https://github.com/user-attachments/assets/f16e0324-ddad-41fd-92a9-860cac2d02e3
 
 [Watch the Video on Youtube in higher Resolution](https://www.youtube.com/watch?v=VJmRcnJ60fc)   
 
-[Watch this node in a workflow - A real world example !!](https://youtu.be/H0ZfDIShJLQ)
+#### Video of "AF - Edit Generated Prompt" in a workflow
 
 <a href="https://youtu.be/H0ZfDIShJLQ">
   <img src="https://github.com/alFrame/ComfyUI-AF-Pack-Prompt-Nodes/blob/main/Docs/screenshots/AF-Edit-Generated-Prompt_Workflow_SmallThumb.jpg" width="100%" alt="Click to watch">
