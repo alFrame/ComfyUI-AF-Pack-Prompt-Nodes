@@ -256,6 +256,9 @@ A very simple node that shows the text connected to the input of the Node
 
 A dynamic model switching node that allows you to toggle between multiple model/CLIP/VAE combinations without rewiring your workflow.
 
+<img width="1067" height="945" alt="image" src="https://github.com/user-attachments/assets/dab5fb34-0161-40ab-97c0-f7280a6ccc74" />
+On the left the model switch node with it's 2 default inputs and set to auto (ANy Switch style). On the right with all 10 inputs enabled and rail selection set to use rail 3.
+
 ### Features
 
 - **Dynamic Rails**: Add 2-10 model rails on demand
