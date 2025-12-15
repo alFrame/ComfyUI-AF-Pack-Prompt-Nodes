@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-af-pack-prompt-nodes"
 description = "A lightweight suite of ComfyUI custom nodes for AI prompt management and history tracking."
-version = "1.0.9"
+version = "1.1.0"
 license = {file = "LICENSE"}
 dependencies = []
 

@@ -88,8 +88,9 @@ yarn-error.log*
 
 # AF speciffic
 Status.txt
-*.docx
 *.psd
+*.docx
+helpers/
 nodes.zip
 node.zip
 Docs/screenshots/

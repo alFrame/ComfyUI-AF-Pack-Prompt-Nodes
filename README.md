@@ -7,7 +7,8 @@ A lightweight suite of ComfyUI custom nodes for AI prompt management and history
 **[AF - Edit Generated Prompt](#af---edit-generated-prompt)** - Receive LLM-generated prompts and optionally edit them manually  
 **[AF - Save Prompt History](#af---save-prompt-history)** - Archive prompts to JSON files with timestamps  
 **[AF - Load Prompt History](#af---load-prompt-history)** - Browse and load previous prompts by index  
-**[AF - Show Text](#af---show-text)** - SImple node that displays the connected text
+**[AF - Show Text](#af---show-text)** - Simple node that displays the connected text  
+**[AF - Model Switch](#af---model-switch)** - A dynamic model/clip/vae switching node
 
 ---
 
@@ -204,6 +205,18 @@ AF Load - ✓ Successfully loaded: ID: 126 | 2025-10-29 14:32:15
 
 ---
 
+
+## 💡 Pro Tips
+
+- **Index 0 is your friend** - Always points to newest prompt
+- **Info output shows everything** - See exactly what you loaded
+- **Console logging** - Check ID and timestamp confirmation
+- **Multiple load nodes** - Each can access different files/indices
+- **Workflows persist** - Your selections save with the workflow
+- **Project field** - Use it as a mental note when saving, great for manual inspection
+
+---
+
 ### AF - Show Text
 
 A very simple node that shows the text connected to the input of the Node
@@ -239,14 +252,89 @@ A very simple node that shows the text connected to the input of the Node
 
 ---
 
-## 💡 Pro Tips
+## AF - Model Switch
 
-- **Index 0 is your friend** - Always points to newest prompt
-- **Info output shows everything** - See exactly what you loaded
-- **Console logging** - Check ID and timestamp confirmation
-- **Multiple load nodes** - Each can access different files/indices
-- **Workflows persist** - Your selections save with the workflow
-- **Project field** - Use it as a mental note when saving, great for manual inspection
+A dynamic model switching node that allows you to toggle between multiple model/CLIP/VAE combinations without rewiring your workflow.
+
+### Features
+
+- **Dynamic Rails**: Add 2-10 model rails on demand
+- **Smart AUTO Mode**: Automatically selects the first connected rail
+- **1-Based Indexing**: Intuitive numbering (Rail 1, Rail 2, Rail 3...)
+- **Permanent Base Rails**: Rails 1-2 never lose connections when adjusting rail count
+- **Real-Time Status**: Color-coded display shows active rail instantly
+- **Flexible Sizing**: Resizable node that preserves your layout preferences
+
+### How It Works
+
+The Model Switch acts as a gateway for your model pipeline. Instead of maintaining multiple workflow branches or manually reconnecting loaders, you can:
+
+1. Connect multiple checkpoint loaders (or AIO loaders) to different rails
+2. Choose which rail to use via the `selected_rail` parameter
+3. The node outputs the MODEL, CLIP, and VAE from your selected rail
+
+### Parameters
+
+| Parameter | Type | Range | Description |
+|-----------|------|-------|-------------|
+| `number_of_rails` | INT | 2-10 | Number of visible model rails |
+| `selected_rail` | INT | 0-10 | Active rail: `0` = AUTO (first connected), `1-10` = manual selection |
+| `status` | STRING | - | Read-only display showing current active rail |
+
+### Status Display Colors
+
+- 🟠 **Orange**: AUTO mode - automatically using first connected rail
+- 🔵 **Blue**: Manual mode - specific rail selected
+- 🔴 **Red**: Error - no models connected
+
+### Usage Example
+
+**Basic Setup:**
+```
+Checkpoint Loader A → model_1, clip_1, vae_1
+Checkpoint Loader B → model_2, clip_2, vae_2
+                          ↓
+                   AF Model Switch
+                 (selected_rail: 0)
+                          ↓
+                  → model, clip, vae
+```
+
+**A/B Testing Workflow:**
+1. Set `number_of_rails: 2`
+2. Connect two different models to Rails 1 and 2
+3. Set `selected_rail: 1` to use first model, `2` for second model
+4. Set `selected_rail: 0` for AUTO mode (uses first connected)
+
+**Advanced: Quality vs Speed:**
+1. Set `number_of_rails: 3`
+2. Rail 1: High-quality slow model
+3. Rail 2: Balanced model
+4. Rail 3: Fast draft model
+5. Switch between them by changing `selected_rail`
+
+### Tips
+
+- **Rails 1-2 are permanent**: These connections are never lost when you adjust `number_of_rails`
+- **Rails 3-10 are dynamic**: These are added/removed as needed
+- **Use with rgthree Group Bypasser**: Bypass entire model loading groups to save memory - only the selected rail's loaders will execute
+- **AUTO mode is smart**: It will find the first rail with actual data, skipping any bypassed/muted nodes
+- **Status updates instantly**: No need to run the workflow to see which rail is selected
+
+### Integration with Other Nodes
+
+**Works great with:**
+- `rgthree Context Switch` - for full pipeline switching
+- `rgthree Group Bypasser` - to disable unused model loaders
+- `AF - Save Prompt History` - save which model was used with each prompt
+- Any checkpoint loader or AIO loader node
+
+### Technical Notes
+
+- Input names are 1-based: `model_1`, `clip_1`, `vae_1`, etc.
+- Internally consistent: no confusing 0-based conversions
+- Minimum node width: 160px
+- Height auto-adjusts based on number of rails
 
 ---
 

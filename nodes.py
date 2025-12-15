@@ -475,21 +475,143 @@ class AF_Show_Text:
             "ui": {"text": [str(text)]},
             "result": (text,)
         }
-        
+
 # =============================================================================
-# Node Mappings
+# AF - Model Switch Node (1-based Rails, 0=AUTO)
 # =============================================================================
 
+class AF_Model_Switch:
+    """
+    Switch between model configurations with dynamic input visibility.
+    Uses 1-based indexing: Rail 1, Rail 2, Rail 3, etc.
+    Rails 1 and 2 are permanent (connections never lost).
+    Rails 3-10 are dynamically added/removed.
+
+    Selected rail: 0 = AUTO (first connected), 1-10 = manual selection
+    """
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "number_of_rails": ("INT", {
+                    "default": 2,
+                    "min": 2,
+                    "max": 10,
+                    "step": 1,
+                    "display": "number",
+                    "tooltip": "Number of visible rails (2-10)"
+                }),
+                "selected_rail": ("INT", {
+                    "default": 0,
+                    "min": 0,
+                    "max": 10,
+                    "step": 1,
+                    "display": "number",
+                    "tooltip": "Active rail: 0=AUTO (first connected), 1-10=manual selection"
+                }),
+                "status": ("STRING", {
+                    "default": "💡 Active Rail: auto",
+                    "multiline": True,
+                    "dynamicPrompts": False
+                }),
+            },
+            "optional": {
+                # Rail 1 and Rail 2 are PERMANENT - never removed
+                "model_1": ("MODEL",),
+                "clip_1": ("CLIP",),
+                "vae_1": ("VAE",),
+                "model_2": ("MODEL",),
+                "clip_2": ("CLIP",),
+                "vae_2": ("VAE",),
+            },
+            "hidden": {
+                "unique_id": "UNIQUE_ID",
+                "extra_pnginfo": "EXTRA_PNGINFO",
+            }
+        }
+
+    RETURN_TYPES = ("MODEL", "CLIP", "VAE")
+    RETURN_NAMES = ("model", "clip", "vae")
+    FUNCTION = "switch_model"
+    CATEGORY = "AF - Nodes/AF - Prompt Pack"
+    OUTPUT_NODE = True
+
+    def switch_model(self, number_of_rails, selected_rail, status="", unique_id=None, extra_pnginfo=None, **kwargs):
+        # Clamp values to valid ranges
+        number_of_rails = max(2, min(10, number_of_rails))
+        selected_rail = max(0, min(number_of_rails, selected_rail))
+
+        # Determine actual active rail (1-based throughout!)
+        actual_rail = None
+        is_auto_mode = (selected_rail == 0)
+
+        if is_auto_mode:
+            # AUTO mode - find first rail with data
+            for i in range(1, number_of_rails + 1):  # Rails 1 to number_of_rails
+                test_model = kwargs.get(f"model_{i}", None)
+                if test_model is not None:
+                    actual_rail = i
+                    print(f"AF Model Switch - AUTO → Rail {actual_rail}")
+                    break
+
+            if actual_rail is None:
+                # No rails have data, default to rail 1
+                actual_rail = 1
+                print(f"AF Model Switch - AUTO → No data found, defaulting to Rail 1")
+
+            status_text = f"💡 Active Rail: auto → {actual_rail}"
+        else:
+            # Manual mode - user selected specific rail (1-based)
+            actual_rail = selected_rail
+            status_text = f"🎯 Active Rail: {actual_rail}"
+            print(f"AF Model Switch - Manual → Rail {actual_rail}")
+
+        # Get selected components using 1-based rail number directly
+        model = kwargs.get(f"model_{actual_rail}", None)
+        clip = kwargs.get(f"clip_{actual_rail}", None)
+        vae = kwargs.get(f"vae_{actual_rail}", None)
+
+        # Final fallback if still no model
+        if model is None:
+            for i in range(1, number_of_rails + 1):
+                test_model = kwargs.get(f"model_{i}", None)
+                if test_model is not None:
+                    model = test_model
+                    clip = kwargs.get(f"clip_{i}", None)
+                    vae = kwargs.get(f"vae_{i}", None)
+                    print(f"AF Model Switch - Fallback to rail {i}")
+                    break
+
+        if model is not None:
+            print(f"AF Model Switch - ✓ Outputting Rail {actual_rail} (of 1-{number_of_rails})")
+        else:
+            print(f"AF Model Switch - ⚠️  No models connected")
+            status_text = "⚠️ Active Rail: none (no connections)"
+
+        return {
+            "ui": {"status": [status_text]},
+            "result": (model, clip, vae)
+        }
+
+    @classmethod
+    def IS_CHANGED(cls, number_of_rails, selected_rail, **kwargs):
+        # Force re-evaluation when inputs change
+        return f"{number_of_rails}-{selected_rail}"
+
+# Update NODE_CLASS_MAPPINGS
 NODE_CLASS_MAPPINGS = {
     "AF_Edit_Generated_Prompt": AF_Edit_Generated_Prompt,
     "AF_Save_Prompt_History": AF_Save_Prompt_History,
     "AF_Load_Prompt_History": AF_Load_Prompt_History,
     "AF_Show_Text": AF_Show_Text,
+    "AF_Model_Switch": AF_Model_Switch,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "AF_Edit_Generated_Prompt": "AF - Edit Generated Prompt",
-    "AF_Save_Prompt_History": "AF - Save Prompt History", 
+    "AF_Save_Prompt_History": "AF - Save Prompt History",
     "AF_Load_Prompt_History": "AF - Load Prompt History",
     "AF_Show_Text": "AF - Show Text",
+    "AF_Model_Switch": "AF - Model Switch",
 }
